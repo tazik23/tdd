@@ -1,5 +1,6 @@
 using FluentAssertions;
 using TagsCloudVisualization.Geometry;
+using TagsCloudVisualization.Geometry.Extensions;
 using TagsCloudVisualization.Layouters;
 
 namespace Tests;
@@ -44,6 +45,27 @@ public class CircularCloudLayouterTests
             }
         }
     }
+
+    [Test]
+    public void PutNextRectangle_ManyRectangles_ShouldTightlyDistribute()
+    {
+        var densityCoefficient = 0.75;
+        
+        foreach (var size in GenerateSizes(10, 20, 30))
+        {
+            layouter.PutNextRectangle(size);
+        }
+        
+        var rectangles = layouter.Rectangles.ToList();
+        var rectanglesArea = rectangles.Select(r => r.GetArea()).Sum();
+        
+        var circumscribedCircleRadius = GetCircumscribedCircleRadius(center, rectangles);
+        var circumscribedCircleArea = circumscribedCircleRadius * circumscribedCircleRadius * Math.PI;
+        
+        var actualDensityCoefficient = rectanglesArea / circumscribedCircleArea;
+        
+        actualDensityCoefficient.Should().BeGreaterThanOrEqualTo(densityCoefficient);
+    }
     
     private IEnumerable<Size> GenerateSizes(int count, int minSize, int maxSize)
     {
@@ -54,5 +76,21 @@ public class CircularCloudLayouterTests
             var height = random.Next(minSize, maxSize);
             yield return new Size(width, height);
         }
+    }
+
+    private double GetCircumscribedCircleRadius(Point center, IEnumerable<Rectangle> rectangles)
+    {
+        double radius = 0;
+
+        foreach(var rectangle in rectangles)
+        {
+            foreach(var vertex in rectangle.GetVertices())
+            {
+                var distance = center.DistanceTo(vertex);
+                radius = Math.Max(radius, distance);
+            }
+        }
+
+        return radius;
     }
 }
