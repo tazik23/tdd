@@ -15,10 +15,4 @@ public class Rectangle
         Center = center;
         Size = size;
     }
-    
-    public bool IntersectsWith(Rectangle other)
-    {
-        return Left < other.Right && Right > other.Left &&
-               Top < other.Bottom && Bottom > other.Top;
-    }
 }
