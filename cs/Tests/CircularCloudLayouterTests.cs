@@ -23,7 +23,7 @@ public class CircularCloudLayouterTests
     {
         var rectangle = layouter.PutNextRectangle(new Size(10, 10));
         
-        rectangle.Center.Should().Be(center);
+        rectangle.Center.Should().BeEquivalentTo(center);
     }
     
     [Test]
