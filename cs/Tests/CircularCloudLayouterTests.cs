@@ -18,7 +18,6 @@ public class CircularCloudLayouterTests
         layouter = new SpiralCloudLayouter(center);
     }
     
-    
     [Test]
     public void PutNextRectangle_FirstRectangle_ShouldPlaceInCenter()
     {
@@ -27,10 +26,10 @@ public class CircularCloudLayouterTests
         rectangle.Center.Should().BeEquivalentTo(center);
     }
     
-    [Test]
-    public void PutNextRectangle_ManyRectangles_ShouldNotIntersects()
+    [TestCaseSource(nameof(RectanglesTestCases))]
+    public void PutNextRectangle_ManyRectangles_ShouldNotIntersects(IEnumerable<Size> sizes)
     {
-        foreach (var size in GenerateSizes(10, 20, 30))
+        foreach (var size in sizes)
         {
             layouter.PutNextRectangle(size);
         }
@@ -46,12 +45,12 @@ public class CircularCloudLayouterTests
         }
     }
 
-    [Test]
-    public void PutNextRectangle_ManyRectangles_ShouldTightlyDistribute()
+    [TestCaseSource(nameof(RectanglesTestCases))]
+    public void PutNextRectangle_ManyRectangles_ShouldTightlyDistribute(IEnumerable<Size> sizes)
     {
         var densityCoefficient = 0.75;
         
-        foreach (var size in GenerateSizes(10, 20, 30))
+        foreach (var size in sizes)
         {
             layouter.PutNextRectangle(size);
         }
@@ -66,19 +65,39 @@ public class CircularCloudLayouterTests
         
         actualDensityCoefficient.Should().BeGreaterThanOrEqualTo(densityCoefficient);
     }
+
+    private static IEnumerable<TestCaseData> RectanglesTestCases
+    {
+        get
+        {
+            yield return new TestCaseData(
+                GenerateSizes(10, 10, 10, 10, 10))
+                .SetName("Squares");
+            yield return new TestCaseData(
+                GenerateSizes(10, 1, 10, 50, 100))
+                .SetName("Tall Rectangles");
+            yield return new TestCaseData(
+                GenerateSizes(10, 50, 100, 1, 10))
+                .SetName("Long Rectangles");
+            yield return new TestCaseData(
+                GenerateSizes(100, 10, 100, 10, 100))
+                .SetName("Random Rectangles");
+        }
+    }
     
-    private IEnumerable<Size> GenerateSizes(int count, int minSize, int maxSize)
+    private static IEnumerable<Size> GenerateSizes(
+        int count, int minWidthSize, int maxWidthSize, int minHeightSize, int maxHeightSize)
     {
         var random = new Random();
         for (int i = 0; i < count; i++)
         {
-            var width = random.Next(minSize, maxSize);
-            var height = random.Next(minSize, maxSize);
+            var width = random.Next(minWidthSize, maxWidthSize);
+            var height = random.Next(minHeightSize, maxHeightSize);
             yield return new Size(width, height);
         }
     }
 
-    private double GetCircumscribedCircleRadius(Point center, IEnumerable<Rectangle> rectangles)
+    private static double GetCircumscribedCircleRadius(Point center, IEnumerable<Rectangle> rectangles)
     {
         double radius = 0;
 
