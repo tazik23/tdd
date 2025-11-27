@@ -25,5 +25,14 @@ public static class RectangleExtensions
     {
         return rectangle.Size.Height * rectangle.Size.Width;
     }
+
+    public static Rectangle MoveInDirection(this Rectangle rectangle, Point direction, double distance)
+    {
+        var center = new Point(
+            rectangle.Center.X + direction.X * distance,
+            rectangle.Center.Y + direction.Y * distance);
+        
+        return new Rectangle(center, rectangle.Size);
+    }
 }
 
