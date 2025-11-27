@@ -3,8 +3,8 @@ using FluentAssertions;
 using TagsCloudVisualization;
 using TagsCloudVisualization.Geometry;
 using TagsCloudVisualization.Geometry.Extensions;
+using TagsCloudVisualization.Helpers;
 using TagsCloudVisualization.Layouters;
-using TagsCloudVisualization.Savers;
 using TagsCloudVisualization.Visualizers;
 
 namespace Tests;

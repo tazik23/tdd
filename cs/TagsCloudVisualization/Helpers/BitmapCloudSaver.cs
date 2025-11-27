@@ -1,7 +1,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace TagsCloudVisualization.Savers;
+namespace TagsCloudVisualization.Helpers;
 
 public class BitmapCloudSaver
 {
