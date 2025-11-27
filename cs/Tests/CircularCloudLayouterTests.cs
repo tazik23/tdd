@@ -18,7 +18,7 @@ public class CircularCloudLayouterTests
     [SetUp]
     public void SetUp()
     {
-        center = new Point(0, 0);
+        center = Point.Zero;
         layouter = new SpiralCloudLayouter(center);
     }
 
