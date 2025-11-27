@@ -9,4 +9,9 @@ public static class PointExtensions
         
         return Math.Sqrt(dx * dx + dy * dy);
     }
+
+    public static bool IsZero(this Point point)
+    {
+        return Math.Abs(point.X) < double.Epsilon && Math.Abs(point.Y) < double.Epsilon;
+    }
 }

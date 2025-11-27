@@ -39,47 +39,63 @@ public class SpiralCloudLayouter : ICircularCloudLayouter
         return rectangle;
     }
 
-    private Rectangle TryMoveToCenter(Rectangle rectangle,int  maxIterationsToTry = 1000)
+    private Rectangle TryMoveToCenter(Rectangle rectangle, int maxIterationsToTry = 1000)
     {
         if(rectangles.Count == 0)
             return rectangle;
         
         var current = rectangle;
-        bool isMoved;
         var iterations = 0;
-        var moveStep = 0.1;
-        
-        do
+
+        while(iterations < maxIterationsToTry)
         {
-            isMoved = false;
-            var directionX = new Point(-Math.Sign(current.Center.X - center.X), 0);
-            if(directionX.X != 0)
-            {
-                var candidate = current.MoveInDirection(directionX, moveStep);
-                if(!HasIntersections(candidate))
-                {
-                    current = candidate;
-                    isMoved = true;
-                }
-            }
-
-            var directionY = new Point(0, -Math.Sign(current.Center.Y - center.Y));
-            if(directionY.Y != 0)
-            {
-                var candidate = current.MoveInDirection(directionY, moveStep);
-                if (!HasIntersections(candidate))
-                {
-                    current = candidate;
-                    isMoved = true;
-                }
-            }
-
+            var movedX = TryMoveAlongAxis(current, Axis.X, out var xCandidate);
+            if(movedX) current = xCandidate;
+            
+            var movedY = TryMoveAlongAxis(current, Axis.Y, out var yCandidate);
+            if(movedY) current = yCandidate;
+            
+            if(!(movedX || movedY))
+                break;
+            
             iterations++;
-        } while(isMoved && iterations < maxIterationsToTry);
-
+        }
+        
         return current;
     }
 
+    private bool TryMoveAlongAxis(Rectangle rectangle, Axis axis, out Rectangle candidate)
+    {
+        var stepSize = 0.1;
+        var direction = GetDirectionToCenter(rectangle.Center, axis);
+
+        if (direction.IsZero())
+        {
+            candidate = rectangle;
+            return false;
+        }
+        
+        var moved = rectangle.MoveInDirection(direction, stepSize);
+        if (!HasIntersections(moved))
+        {
+            candidate = moved;
+            return true;
+        }
+
+        candidate = rectangle;
+        return false;
+    }
+
+    private Point GetDirectionToCenter(Point point, Axis axis)
+    {
+        return axis switch
+        {
+            Axis.X => new Point(-Math.Sign(point.X - center.X), 0),
+            Axis.Y => new Point(0, -Math.Sign(point.Y - center.Y)),
+            _ => Point.Zero
+        };
+    }
+    
     private bool HasIntersections(Rectangle rectangle)
     {
         return rectangles.Any(r => r.IntersectsWith(rectangle));
