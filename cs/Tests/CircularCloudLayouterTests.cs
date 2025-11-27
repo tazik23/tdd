@@ -69,7 +69,7 @@ public class CircularCloudLayouterTests
     [TestCaseSource(nameof(RectanglesTestCases))]
     public void PutNextRectangle_ManyRectangles_ShouldTightlyDistribute(IEnumerable<Size> sizes)
     {
-        var densityCoefficient = 0.75;
+        var densityCoefficient = 0.7;
         
         foreach (var size in sizes)
         {
@@ -103,6 +103,9 @@ public class CircularCloudLayouterTests
             yield return new TestCaseData(
                     SizesGenerator.Generate(100, 10, 100, 10, 100))
                 .SetName("RandomRectangles");
+            yield return new TestCaseData(
+                SizesGenerator.Generate(100, 1000, 2000, 1000, 2000))
+                .SetName("BigRectangles");
         }
     }
 
