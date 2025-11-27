@@ -1,4 +1,5 @@
 using FluentAssertions;
+using TagsCloudVisualization;
 using TagsCloudVisualization.Geometry;
 using TagsCloudVisualization.Geometry.Extensions;
 using TagsCloudVisualization.Layouters;
@@ -71,29 +72,17 @@ public class CircularCloudLayouterTests
         get
         {
             yield return new TestCaseData(
-                GenerateSizes(10, 10, 10, 10, 10))
+                SizesGenerator.Generate(100, 10, 10, 10, 10))
                 .SetName("Squares");
             yield return new TestCaseData(
-                GenerateSizes(10, 1, 10, 50, 100))
+                    SizesGenerator.Generate(100, 1, 10, 50, 100))
                 .SetName("Tall Rectangles");
             yield return new TestCaseData(
-                GenerateSizes(10, 50, 100, 1, 10))
+                    SizesGenerator.Generate(100, 50, 100, 1, 10))
                 .SetName("Long Rectangles");
             yield return new TestCaseData(
-                GenerateSizes(100, 10, 100, 10, 100))
+                    SizesGenerator.Generate(100, 10, 100, 10, 100))
                 .SetName("Random Rectangles");
-        }
-    }
-    
-    private static IEnumerable<Size> GenerateSizes(
-        int count, int minWidthSize, int maxWidthSize, int minHeightSize, int maxHeightSize)
-    {
-        var random = new Random();
-        for (int i = 0; i < count; i++)
-        {
-            var width = random.Next(minWidthSize, maxWidthSize);
-            var height = random.Next(minHeightSize, maxHeightSize);
-            yield return new Size(width, height);
         }
     }
 
