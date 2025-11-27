@@ -106,12 +106,19 @@ public class CircularCloudLayouterTests
             yield return new TestCaseData(
                 SizesGenerator.Generate(100, 1000, 2000, 1000, 2000))
                 .SetName("BigRectangles");
+            yield return new TestCaseData(new List<Size> {
+                new(0.001, 0.002),
+                new(0.002, 0.003),
+                new(0.001, 0.0004),
+                new(0.003, 0.002),
+                new(0.0002, 0.0002)})
+                .SetName("SmallRectangles");
         }
     }
 
     private static double GetCircumscribedCircleRadius(Point center, IEnumerable<Rectangle> rectangles)
     {
-        double radius = 0;
+        var radius = 0d;
 
         foreach(var rectangle in rectangles)
         {
