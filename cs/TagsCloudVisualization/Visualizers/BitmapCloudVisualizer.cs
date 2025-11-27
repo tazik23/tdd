@@ -55,7 +55,7 @@ public class BitmapCloudVisualizer
         using var pen = new Pen(settings.RectangleBorderColor, settings.RectangleBorderWidth);
         using var brush = new SolidBrush(settings.RectangleColor);
 
-        foreach (var rectangle in rectangles)
+        foreach(var rectangle in rectangles)
         {
             var rectangleToDraw = new System.Drawing.Rectangle(
                 (int)(offsetX + rectangle.Left * scale),
