@@ -1,8 +1,11 @@
+using System.Drawing.Imaging;
 using FluentAssertions;
 using TagsCloudVisualization;
 using TagsCloudVisualization.Geometry;
 using TagsCloudVisualization.Geometry.Extensions;
 using TagsCloudVisualization.Layouters;
+using TagsCloudVisualization.Savers;
+using TagsCloudVisualization.Visualizers;
 
 namespace Tests;
 
@@ -17,6 +20,23 @@ public class CircularCloudLayouterTests
     {
         center = new Point(0, 0);
         layouter = new SpiralCloudLayouter(center);
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        if(TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+        {
+            var failuresFolder = Path.Combine(TestContext.CurrentContext.WorkDirectory, "TestFailures");
+            Directory.CreateDirectory(failuresFolder); 
+
+            var testName = TestContext.CurrentContext.Test.Name;
+            var fileName = $"test_failure_{testName}.png";
+            var fullPath = Path.Combine(failuresFolder, fileName);
+        
+            SaveCloudVisualization(fullPath);
+            TestContext.WriteLine($"Test {testName} failed. Tag cloud visualization saved to {fullPath}");
+        }
     }
     
     [Test]
@@ -76,13 +96,13 @@ public class CircularCloudLayouterTests
                 .SetName("Squares");
             yield return new TestCaseData(
                     SizesGenerator.Generate(100, 1, 10, 50, 100))
-                .SetName("Tall Rectangles");
+                .SetName("TallRectangles");
             yield return new TestCaseData(
                     SizesGenerator.Generate(100, 50, 100, 1, 10))
-                .SetName("Long Rectangles");
+                .SetName("LongRectangles");
             yield return new TestCaseData(
                     SizesGenerator.Generate(100, 10, 100, 10, 100))
-                .SetName("Random Rectangles");
+                .SetName("RandomRectangles");
         }
     }
 
@@ -100,5 +120,12 @@ public class CircularCloudLayouterTests
         }
 
         return radius;
+    }
+
+    private void SaveCloudVisualization(string fileName)
+    {
+        var visualizer = new BitmapCloudVisualizer(VisualizerSettings.Default());
+        var image = visualizer.CreateImage(layouter.Rectangles, center);
+        new BitmapCloudSaver().SaveToFile(image, fileName, ImageFormat.Png);
     }
 }
