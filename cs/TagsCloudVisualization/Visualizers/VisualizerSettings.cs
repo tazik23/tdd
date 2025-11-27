@@ -39,7 +39,7 @@ public class VisualizerSettings
             Color.White,
             Color.Plum,
             Color.Black,
-            1f
+            4f
         );
     }
 }
