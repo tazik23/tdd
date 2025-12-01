@@ -1,6 +1,4 @@
 using System.Drawing;
-using Point = TagsCloudVisualization.Geometry.Point;
-using Rectangle = TagsCloudVisualization.Geometry.Rectangle;
 
 namespace TagsCloudVisualization.Visualizers;
 
@@ -13,7 +11,7 @@ public class BitmapCloudVisualizer
         this.settings = settings;
     }
     
-    public Bitmap CreateImage(IEnumerable<Rectangle> rectangles, Point center)
+    public Image CreateImage(IEnumerable<Rectangle> rectangles)
     {
         var bitmap = new Bitmap(settings.Width, settings.Height);
         using var graphics = Graphics.FromImage(bitmap);
@@ -39,9 +37,9 @@ public class BitmapCloudVisualizer
 
         var cloudWidth = maxX - minX;
         var cloudHeight = maxY - minY;
-
-        var scaleX = settings.Width * settings.CloudScaleFactor / cloudWidth;
-        var scaleY = settings.Height * settings.CloudScaleFactor / cloudHeight;
+        
+        var scaleX = settings.Width * 0.8 / cloudWidth;
+        var scaleY = settings.Height * 0.8 / cloudHeight;
         var scale = Math.Min(scaleX, scaleY);
 
         var offsetX = (settings.Width - cloudWidth * scale) / 2 - minX * scale;
@@ -57,15 +55,14 @@ public class BitmapCloudVisualizer
 
         foreach(var rectangle in rectangles)
         {
-            var rectangleToDraw = new System.Drawing.Rectangle(
+            var rectangleToDraw = new Rectangle(
                 (int)(offsetX + rectangle.Left * scale),
                 (int)(offsetY + rectangle.Top * scale),
-                (int)(rectangle.Size.Width * scale),
-                (int)(rectangle.Size.Height * scale));
+                (int)(rectangle.Width * scale),
+                (int)(rectangle.Height * scale));
             
             graphics.DrawRectangle(pen, rectangleToDraw);
             graphics.FillRectangle(brush, rectangleToDraw);
         }
     }
-    
 }

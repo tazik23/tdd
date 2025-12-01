@@ -6,7 +6,6 @@ public class VisualizerSettings
 {
     public int Width { get; }
     public int Height { get; }
-    public double CloudScaleFactor { get; }
     public Color BackgroundColor { get; }
     public Color RectangleColor { get; }
     public Color RectangleBorderColor { get; }
@@ -15,7 +14,6 @@ public class VisualizerSettings
     public VisualizerSettings(
         int width,
         int height,
-        double cloudScaleFactor,
         Color backgroundColor,
         Color rectangleColor,
         Color rectangleBorderColor, 
@@ -23,7 +21,6 @@ public class VisualizerSettings
     {
         Width = width;
         Height = height;
-        CloudScaleFactor = cloudScaleFactor;
         BackgroundColor = backgroundColor;
         RectangleColor = rectangleColor;
         RectangleBorderColor = rectangleBorderColor;
@@ -35,7 +32,6 @@ public class VisualizerSettings
         return new VisualizerSettings(
             800,
             600,
-            0.8,
             Color.White,
             Color.Plum,
             Color.Black,
