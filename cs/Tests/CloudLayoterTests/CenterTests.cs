@@ -9,7 +9,7 @@ namespace Tests.CloudLayoterTests;
 public class CenterTests : CircularCloudLayoterTestBase
 {
     [TestCaseSource(nameof(CenterTestCases))]
-    public void PutNextRectangle_FirstRectangle_ShouldPlaceInCenter(Point center)
+    public void PutNextRectangle_DifferentCenters_ShouldPlaceFirstRectangleInCenter(Point center)
     {
         var spiral = new ArchimedeanSpiral(center);
         Layouter = new SpiralCloudLayouter(spiral);
@@ -23,14 +23,14 @@ public class CenterTests : CircularCloudLayoterTestBase
         
         rectangle.GetCenter().Should().BeEquivalentTo(center);
     }
-    
-    private static Point[] GetTestCenters() =>
-    [
-        new(0, 0),
-        new(1000, 500),
-        new(-100, -100)
-    ];
-    
+
+    private static IEnumerable<Point> GetTestCenters()
+    {
+        yield return new Point(0, 0);
+        yield return new Point(1000, 500);
+        yield return new Point(-100, -100);
+    }
+
     private static IEnumerable<TestCaseData> CenterTestCases
     {
         get
