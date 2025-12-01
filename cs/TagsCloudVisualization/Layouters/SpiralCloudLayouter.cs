@@ -6,16 +6,14 @@ namespace TagsCloudVisualization.Layouters;
 
 public class SpiralCloudLayouter : ICircularCloudLayouter
 {
-    private readonly Point center;
-    private readonly Spiral spiral;
+    private readonly ISpiral spiral;
     private readonly List<Rectangle> rectangles = new();
     
-    public IEnumerable<Rectangle> Rectangles => rectangles;
+    public IReadOnlyList<Rectangle> Rectangles => rectangles.AsReadOnly();
 
-    public SpiralCloudLayouter(Point center)
+    public SpiralCloudLayouter(ISpiral spiral)
     {
-        this.center = center;
-        spiral = new Spiral(center);
+        this.spiral = spiral;
     }
     public Rectangle PutNextRectangle(Size rectangleSize)
     {
@@ -33,7 +31,7 @@ public class SpiralCloudLayouter : ICircularCloudLayouter
         do
         {
             var candidatePoint = spiral.GetNextPoint();
-            rectangle = new Rectangle(candidatePoint, rectangleSize);
+            rectangle = CreateRectangleWithCenterAt(candidatePoint, rectangleSize);
         } 
         while(HasIntersections(rectangle));
 
@@ -67,8 +65,8 @@ public class SpiralCloudLayouter : ICircularCloudLayouter
 
     private bool TryMoveAlongAxis(Rectangle rectangle, Axis axis, out Rectangle candidate)
     {
-        var stepSize = 0.1;
-        var direction = GetDirectionToCenter(rectangle.Center, axis);
+        var stepSize = 1;
+        var direction = GetDirectionToCenter(rectangle.GetCenter(), axis);
 
         if (direction.IsZero())
         {
@@ -91,14 +89,20 @@ public class SpiralCloudLayouter : ICircularCloudLayouter
     {
         return axis switch
         {
-            Axis.X => new Point(-Math.Sign(point.X - center.X), 0),
-            Axis.Y => new Point(0, -Math.Sign(point.Y - center.Y)),
-            _ => Point.Zero
+            Axis.X => new Point(-Math.Sign(point.X - spiral.Center.X), 0),
+            Axis.Y => new Point(0, -Math.Sign(point.Y - spiral.Center.Y)),
+            _ => new Point(0, 0)
         };
     }
     
     private bool HasIntersections(Rectangle rectangle)
     {
         return rectangles.Any(r => r.IntersectsWith(rectangle));
+    }
+    
+    private Rectangle CreateRectangleWithCenterAt(Point center, Size size)
+    {
+        var location = new Point(center.X - size.Width / 2, center.Y - size.Height / 2);
+        return new Rectangle(location, size);
     }
 }
