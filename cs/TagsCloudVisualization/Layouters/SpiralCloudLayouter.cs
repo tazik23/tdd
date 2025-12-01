@@ -38,7 +38,7 @@ public class SpiralCloudLayouter : ICircularCloudLayouter
         return rectangle;
     }
 
-    private Rectangle TryMoveToCenter(Rectangle rectangle, int maxIterationsToTry = 1000)
+    private Rectangle TryMoveToCenter(Rectangle rectangle, int maxIterationsToTry = 10000)
     {
         if(rectangles.Count == 0)
             return rectangle;
