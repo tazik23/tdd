@@ -2,16 +2,17 @@ using System.Drawing;
 
 namespace TagsCloudVisualization.Geometry;
 
-public class Spiral
+public class ArchimedeanSpiral : ISpiral
 {
-    private readonly Point center;
     private double currentAngle;
     private readonly double angleStep;
-    private readonly double distancePerRevolution;
+    private readonly int distancePerRevolution;
+    
+    public Point Center { get; }
 
-    public Spiral(Point center, double angleStep = 0.1, double distancePerRevolution = 1.0)
+    public ArchimedeanSpiral(Point center, double angleStep = 0.1, int distancePerRevolution = 1)
     {
-        this.center = center;
+        Center = center;
         this.angleStep = angleStep;
         this.distancePerRevolution = distancePerRevolution;
     }
@@ -19,8 +20,8 @@ public class Spiral
     public Point GetNextPoint()
     {
         var radius = distancePerRevolution / (2 * Math.PI) * currentAngle;
-        var x = center.X + radius * Math.Cos(currentAngle);
-        var y = center.Y + radius * Math.Sin(currentAngle);
+        var x = (int)(Center.X + radius * Math.Cos(currentAngle));
+        var y = (int)(Center.Y + radius * Math.Sin(currentAngle));
         
         currentAngle += angleStep;
         
