@@ -17,11 +17,16 @@ public static class RectangleExtensions
         return rectangle.Height * rectangle.Width;
     }
 
-    public static Rectangle MoveInDirection(this Rectangle rectangle, Point direction, double distance)
+    public static Point GetCenter(this Rectangle rectangle)
+    {
+        return new Point(rectangle.Left + rectangle.Width / 2, rectangle.Top + rectangle.Height / 2);
+    }
+
+    public static Rectangle MoveInDirection(this Rectangle rectangle, Point direction, int distance)
     {
         var center = new Point(
-            rectangle.Center.X + direction.X * distance,
-            rectangle.Center.Y + direction.Y * distance);
+            rectangle.GetCenter().X + direction.X * distance,
+            rectangle.GetCenter().Y + direction.Y * distance);
         
         return new Rectangle(center, rectangle.Size);
     }
