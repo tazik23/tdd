@@ -24,11 +24,8 @@ public static class RectangleExtensions
 
     public static Rectangle MoveInDirection(this Rectangle rectangle, Point direction, int distance)
     {
-        var center = new Point(
-            rectangle.GetCenter().X + direction.X * distance,
-            rectangle.GetCenter().Y + direction.Y * distance);
-        
-        return new Rectangle(center, rectangle.Size);
+        var newLocation = new Point(rectangle.Left + direction.X * distance, rectangle.Top + direction.Y * distance);
+        return new Rectangle(newLocation, rectangle.Size);
     }
 }
 
