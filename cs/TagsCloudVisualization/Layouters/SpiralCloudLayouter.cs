@@ -1,3 +1,4 @@
+using System.Drawing;
 using TagsCloudVisualization.Geometry;
 using TagsCloudVisualization.Geometry.Extensions;
 

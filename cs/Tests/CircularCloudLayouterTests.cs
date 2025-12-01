@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Drawing.Imaging;
 using FluentAssertions;
 using TagsCloudVisualization;
@@ -95,10 +96,10 @@ public class CircularCloudLayouterTests
                 SizesGenerator.Generate(100, 10, 10, 10, 10))
                 .SetName("Squares");
             yield return new TestCaseData(
-                    SizesGenerator.Generate(100, 1, 10, 50, 100))
+                    SizesGenerator.Generate(1000, 1, 10, 50, 100))
                 .SetName("TallRectangles");
             yield return new TestCaseData(
-                    SizesGenerator.Generate(100, 50, 100, 1, 10))
+                    SizesGenerator.Generate(1000, 50, 100, 1, 10))
                 .SetName("LongRectangles");
             yield return new TestCaseData(
                     SizesGenerator.Generate(100, 10, 100, 10, 100))

@@ -1,5 +1,3 @@
-using TagsCloudVisualization.Geometry;
-
 namespace TagsCloudVisualization;
 
 public static class SizesGenerator

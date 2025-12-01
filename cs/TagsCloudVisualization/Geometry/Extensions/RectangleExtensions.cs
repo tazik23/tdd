@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace TagsCloudVisualization.Geometry.Extensions;
 
 public static class RectangleExtensions
