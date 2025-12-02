@@ -8,12 +8,18 @@ public class SpiralCloudLayouter : ICircularCloudLayouter
 {
     private readonly ISpiral spiral;
     private readonly List<Rectangle> rectangles = new();
+    private readonly QuadTree quadTree;
     
     public IReadOnlyList<Rectangle> Rectangles => rectangles.AsReadOnly();
 
     public SpiralCloudLayouter(ISpiral spiral)
     {
         this.spiral = spiral;
+        quadTree = new QuadTree(new Rectangle(
+            spiral.Center.X, 
+            spiral.Center.Y, 
+            1000, 
+            1000));
     }
     public Rectangle PutNextRectangle(Size rectangleSize)
     {
@@ -21,6 +27,7 @@ public class SpiralCloudLayouter : ICircularCloudLayouter
         rectangle = TryMoveToCenter(rectangle);
         
         rectangles.Add(rectangle);
+        quadTree.Insert(rectangle);
         
         return rectangle;
     }
@@ -68,14 +75,13 @@ public class SpiralCloudLayouter : ICircularCloudLayouter
 
     private bool TryMoveAlongAxis(Rectangle rectangle, Point direction, Axis axis, out Rectangle candidate)
     {
-        var stepSize = 1;
-
         if (direction.IsZero())
         {
             candidate = rectangle;
             return false;
         }
         
+        var stepSize = 1;
         var moved = rectangle.MoveInDirection(direction, stepSize);
         
         if (GetDirectionToCenter(rectangle.GetCenter(), axis) != direction)
@@ -106,7 +112,7 @@ public class SpiralCloudLayouter : ICircularCloudLayouter
     
     private bool HasIntersections(Rectangle rectangle)
     {
-        return rectangles.Any(r => r.IntersectsWith(rectangle));
+        return quadTree.HasIntersection(rectangle);
     }
     
     private static Rectangle CreateRectangleWithCenterAt(Point center, Size size)
