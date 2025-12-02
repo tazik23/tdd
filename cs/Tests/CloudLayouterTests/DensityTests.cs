@@ -28,51 +28,51 @@ public class DensityTests : CircularCloudLayouterTestBase
         {
             yield return new TestCaseData(
                     SizesGenerator.GenerateSquares(10, TestSeed), 0.3)
-                .SetName("Placing10Squares_ShouldAchieveAtLeast30PercentDestiny");
+                .SetName("Placing10Squares_ShouldAchieveAtLeast30PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateTallRectangles(10, TestSeed), 0.3)
-                .SetName("Placing10TallRectangles_ShouldAchieveAtLeast30PercentDestiny");
+                .SetName("Placing10TallRectangles_ShouldAchieveAtLeast30PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateLongRectangles(10, TestSeed), 0.3)
-                .SetName("Placing10LongRectangles_ShouldAchieveAtLeast30PercentDestiny");
+                .SetName("Placing10LongRectangles_ShouldAchieveAtLeast30PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateRandomRectangles(10, TestSeed), 0.3)
-                .SetName("Placing10RandomRectangles_ShouldAchieveAtLeast30PercentDestiny");
+                .SetName("Placing10RandomRectangles_ShouldAchieveAtLeast30PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateBigRectangles(10, TestSeed), 0.3)
-                .SetName("Placing10BigRectangles_ShouldAchieveAtLeast30PercentDestiny");
+                .SetName("Placing10BigRectangles_ShouldAchieveAtLeast30PercentDensity");
 
             yield return new TestCaseData(
                     SizesGenerator.GenerateSquares(100, TestSeed), 0.48)
-                .SetName("Placing100Squares_ShouldAchieveAtLeast48PercentDestiny");
+                .SetName("Placing100Squares_ShouldAchieveAtLeast48PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateTallRectangles(100, TestSeed), 0.48)
-                .SetName("Placing100TallRectangles_ShouldAchieveAtLeast48PercentDestiny");
+                .SetName("Placing100TallRectangles_ShouldAchieveAtLeast48PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateLongRectangles(100, TestSeed), 0.48)
-                .SetName("Placing100LongRectangles_ShouldAchieveAtLeast48PercentDestiny");
+                .SetName("Placing100LongRectangles_ShouldAchieveAtLeast48PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateRandomRectangles(100, TestSeed), 0.48)
-                .SetName("Placing100RandomRectangles_ShouldAchieveAtLeast48PercentDestiny");
+                .SetName("Placing100RandomRectangles_ShouldAchieveAtLeast48PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateBigRectangles(100, TestSeed), 0.48)
-                .SetName("Placing100BigRectangles_ShouldAchieveAtLeast48PercentDestiny");
+                .SetName("Placing100BigRectangles_ShouldAchieveAtLeast48PercentDensity");
 
             yield return new TestCaseData(
                     SizesGenerator.GenerateSquares(1000, TestSeed), 0.64)
-                .SetName("Placing1000Squares_ShouldAchieveAtLeast64PercentDestiny");
+                .SetName("Placing1000Squares_ShouldAchieveAtLeast64PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateTallRectangles(1000, TestSeed), 0.64)
-                .SetName("Placing1000TallRectangles_ShouldAchieveAtLeast64PercentDestiny");
+                .SetName("Placing1000TallRectangles_ShouldAchieveAtLeast64PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateLongRectangles(1000, TestSeed), 0.64)
-                .SetName("Placing1000LongRectangles_ShouldAchieveAtLeast64PercentDestiny");
+                .SetName("Placing1000LongRectangles_ShouldAchieveAtLeast64PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateRandomRectangles(1000, TestSeed), 0.64)
-                .SetName("Placing1000RandomRectangles_ShouldAchieveAtLeast64PercentDestiny");
+                .SetName("Placing1000RandomRectangles_ShouldAchieveAtLeast64PercentDensity");
             yield return new TestCaseData(
                     SizesGenerator.GenerateBigRectangles(1000, TestSeed), 0.64)
-                .SetName("Placing1000BigRectangles_ShouldAchieveAtLeast64PercentDestiny");
+                .SetName("Placing1000BigRectangles_ShouldAchieveAtLeast64PercentDensity");
         }
     }
 
