@@ -75,29 +75,22 @@ public class SpiralCloudLayouter : ICircularCloudLayouter
 
     private bool TryMoveAlongAxis(Rectangle rectangle, Point direction, Axis axis, out Rectangle candidate)
     {
+        candidate = rectangle;
+
         if (direction.IsZero())
-        {
-            candidate = rectangle;
             return false;
-        }
 
         var stepSize = 1;
         var moved = rectangle.MoveInDirection(direction, stepSize);
 
         if (GetDirectionToCenter(rectangle.GetCenter(), axis) != direction)
-        {
-            candidate = rectangle;
             return false;
-        }
 
-        if (!HasIntersections(moved))
-        {
-            candidate = moved;
-            return true;
-        }
+        if (HasIntersections(moved))
+            return false;
 
-        candidate = rectangle;
-        return false;
+        candidate = moved;
+        return true;
     }
 
     private Point GetDirectionToCenter(Point point, Axis axis)
