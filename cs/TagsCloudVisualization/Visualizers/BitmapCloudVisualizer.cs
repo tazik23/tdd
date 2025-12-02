@@ -5,6 +5,7 @@ namespace TagsCloudVisualization.Visualizers;
 public class BitmapCloudVisualizer
 {
     private readonly VisualizerSettings settings;
+    private const double ScaleFactor = 0.8;
 
     public BitmapCloudVisualizer(VisualizerSettings settings)
     {
@@ -38,8 +39,8 @@ public class BitmapCloudVisualizer
         var cloudWidth = maxX - minX;
         var cloudHeight = maxY - minY;
         
-        var scaleX = settings.Width * 0.8 / cloudWidth;
-        var scaleY = settings.Height * 0.8 / cloudHeight;
+        var scaleX = settings.Width * ScaleFactor / cloudWidth;
+        var scaleY = settings.Height * ScaleFactor / cloudHeight;
         var scale = Math.Min(scaleX, scaleY);
 
         var offsetX = (settings.Width - cloudWidth * scale) / 2 - minX * scale;
