@@ -8,7 +8,7 @@ public class PerformanceTest : CircularCloudLayouterTestBase
     [Test]
     public void TimeGrowth_ShouldNotBeWorseThanQuadratic()
     {
-        var testSizesCounts = new[] { 10, 50, 100, 200, 500, 1000, 2500, 5000 };
+        var testSizesCounts = new[] { 1000, 2500, 5000, 10000 };
         var executionTimes = new List<long>();
 
         foreach (var count in testSizesCounts)
@@ -45,7 +45,7 @@ public class PerformanceTest : CircularCloudLayouterTestBase
              
             var exponent = Math.Log((double)t2 / t1) / Math.Log((double)n2 / n1);
 
-            TestContext.WriteLine($"N: {n1}->{n2}, time: {t1}->{t2}, exponent = {exponent}");
+            TestContext.WriteLine($"N = {n1}->{n2}, time {t1}->{t2}, exponent = {exponent}");
 
             exponent.Should().BeLessThan(maxAllowedExponent);
         }
