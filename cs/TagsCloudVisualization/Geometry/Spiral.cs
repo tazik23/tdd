@@ -6,20 +6,20 @@ public class ArchimedeanSpiral : ISpiral
 {
     private double currentAngle;
     private readonly double angleStep;
-    private readonly int distancePerRevolution;
+    private readonly int spiralStep;
     
     public Point Center { get; }
 
-    public ArchimedeanSpiral(Point center, double angleStep = 0.1, int distancePerRevolution = 1)
+    public ArchimedeanSpiral(Point center, double angleStep = 0.1, int spiralStep = 1)
     {
         Center = center;
         this.angleStep = angleStep;
-        this.distancePerRevolution = distancePerRevolution;
+        this.spiralStep = spiralStep;
     }
 
     public Point GetNextPoint()
     {
-        var radius = distancePerRevolution / (2 * Math.PI) * currentAngle;
+        var radius = spiralStep / (2 * Math.PI) * currentAngle;
         var x = (int)(Center.X + radius * Math.Cos(currentAngle));
         var y = (int)(Center.Y + radius * Math.Sin(currentAngle));
         
