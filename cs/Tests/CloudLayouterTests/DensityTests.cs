@@ -2,9 +2,9 @@ using System.Drawing;
 using FluentAssertions;
 using TagsCloudVisualization.Geometry.Extensions;
 
-namespace Tests.CloudLayoterTests;
+namespace Tests.CloudLayouterTests;
 
-public class DensityTests : CircularCloudLayoterTestBase
+public class DensityTests : CircularCloudLayouterTestBase
 {
     [TestCaseSource(nameof(DensityRectanglesTestCases))]
     public void PutNextRectangle_ManyRectangles_ShouldTightlyDistribute(IEnumerable<Size> sizes, double expectedDensity)

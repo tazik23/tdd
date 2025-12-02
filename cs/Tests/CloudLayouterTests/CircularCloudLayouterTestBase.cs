@@ -5,10 +5,10 @@ using TagsCloudVisualization.Helpers;
 using TagsCloudVisualization.Layouters;
 using TagsCloudVisualization.Visualizers;
 
-namespace Tests.CloudLayoterTests;
+namespace Tests.CloudLayouterTests;
 
 [TestFixture]
-public class CircularCloudLayoterTestBase
+public class CircularCloudLayouterTestBase
 {
     protected Point Center;
     private ISpiral spiral;

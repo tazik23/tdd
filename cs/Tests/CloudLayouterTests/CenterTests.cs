@@ -4,9 +4,9 @@ using TagsCloudVisualization.Geometry;
 using TagsCloudVisualization.Geometry.Extensions;
 using TagsCloudVisualization.Layouters;
 
-namespace Tests.CloudLayoterTests;
+namespace Tests.CloudLayouterTests;
 
-public class CenterTests : CircularCloudLayoterTestBase
+public class CenterTests : CircularCloudLayouterTestBase
 {
     [TestCaseSource(nameof(CenterTestCases))]
     public void PutNextRectangle_DifferentCenters_ShouldPlaceFirstRectangleInCenter(Point center)

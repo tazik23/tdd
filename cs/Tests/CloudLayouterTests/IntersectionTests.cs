@@ -1,9 +1,9 @@
 using System.Drawing;
 using FluentAssertions;
 
-namespace Tests.CloudLayoterTests;
+namespace Tests.CloudLayouterTests;
 
-public class IntersectionTests : CircularCloudLayoterTestBase
+public class IntersectionTests : CircularCloudLayouterTestBase
 {
     [TestCaseSource(nameof(IntersectionRectanglesTestCases))]
     public void PutNextRectangle_ManyRectangles_ShouldNotIntersects(IEnumerable<Size> sizes)
