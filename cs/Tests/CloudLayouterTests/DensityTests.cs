@@ -9,19 +9,16 @@ public class DensityTests : CircularCloudLayouterTestBase
     [TestCaseSource(nameof(DensityRectanglesTestCases))]
     public void PutNextRectangle_ManyRectangles_ShouldTightlyDistribute(IEnumerable<Size> sizes, double expectedDensity)
     {
-        foreach (var size in sizes)
-        {
-            Layouter.PutNextRectangle(size);
-        }
-        
+        foreach (var size in sizes) Layouter.PutNextRectangle(size);
+
         var rectangles = Layouter.Rectangles.ToList();
         var rectanglesArea = rectangles.Select(r => r.GetArea()).Sum();
-        
+
         var circumscribedCircleRadius = GetCircumscribedCircleRadius(Center, rectangles);
         var circumscribedCircleArea = circumscribedCircleRadius * circumscribedCircleRadius * Math.PI;
-        
+
         var actualDensityCoefficient = rectanglesArea / circumscribedCircleArea;
-        
+
         actualDensityCoefficient.Should().BeGreaterThanOrEqualTo(expectedDensity);
     }
 
@@ -30,7 +27,7 @@ public class DensityTests : CircularCloudLayouterTestBase
         get
         {
             yield return new TestCaseData(
-                SizesGenerator.GenerateSquares(10, TestSeed), 0.3)
+                    SizesGenerator.GenerateSquares(10, TestSeed), 0.3)
                 .SetName("Placing10Squares_ShouldAchieveAtLeast30PercentDestiny");
             yield return new TestCaseData(
                     SizesGenerator.GenerateTallRectangles(10, TestSeed), 0.3)
@@ -44,7 +41,7 @@ public class DensityTests : CircularCloudLayouterTestBase
             yield return new TestCaseData(
                     SizesGenerator.GenerateBigRectangles(10, TestSeed), 0.3)
                 .SetName("Placing10BigRectangles_ShouldAchieveAtLeast30PercentDestiny");
-            
+
             yield return new TestCaseData(
                     SizesGenerator.GenerateSquares(100, TestSeed), 0.48)
                 .SetName("Placing100Squares_ShouldAchieveAtLeast48PercentDestiny");
@@ -60,7 +57,7 @@ public class DensityTests : CircularCloudLayouterTestBase
             yield return new TestCaseData(
                     SizesGenerator.GenerateBigRectangles(100, TestSeed), 0.48)
                 .SetName("Placing100BigRectangles_ShouldAchieveAtLeast48PercentDestiny");
-            
+
             yield return new TestCaseData(
                     SizesGenerator.GenerateSquares(1000, TestSeed), 0.64)
                 .SetName("Placing1000Squares_ShouldAchieveAtLeast64PercentDestiny");
@@ -83,13 +80,11 @@ public class DensityTests : CircularCloudLayouterTestBase
     {
         var radius = 0d;
 
-        foreach(var rectangle in rectangles)
+        foreach (var rectangle in rectangles)
+        foreach (var vertex in rectangle.GetVertices())
         {
-            foreach(var vertex in rectangle.GetVertices())
-            {
-                var distance = center.DistanceTo(vertex);
-                radius = Math.Max(radius, distance);
-            }
+            var distance = center.DistanceTo(vertex);
+            radius = Math.Max(radius, distance);
         }
 
         return radius;

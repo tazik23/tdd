@@ -8,7 +8,7 @@ public static class SizesGenerator
         int count, int minWidthSize, int maxWidthSize, int minHeightSize, int maxHeightSize, int seed)
     {
         var random = new Random(seed);
-        for (int i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
         {
             var width = random.Next(minWidthSize, maxWidthSize);
             var height = random.Next(minHeightSize, maxHeightSize);
@@ -20,17 +20,17 @@ public static class SizesGenerator
     {
         return Generate(count, 10, 10, 10, 10, seed);
     }
-    
+
     public static IEnumerable<Size> GenerateTallRectangles(int count, int seed)
     {
         return Generate(count, 1, 10, 50, 100, seed);
     }
-    
+
     public static IEnumerable<Size> GenerateLongRectangles(int count, int seed)
     {
         return Generate(count, 50, 100, 1, 10, seed);
     }
-    
+
     public static IEnumerable<Size> GenerateRandomRectangles(int count, int seed)
     {
         return Generate(count, 1, 100, 1, 10, seed);

@@ -8,22 +8,15 @@ public class IntersectionTests : CircularCloudLayouterTestBase
     [TestCaseSource(nameof(IntersectionRectanglesTestCases))]
     public void PutNextRectangle_ManyRectangles_ShouldNotIntersects(IEnumerable<Size> sizes)
     {
-        foreach (var size in sizes)
-        {
-            Layouter.PutNextRectangle(size);
-        }
-        
+        foreach (var size in sizes) Layouter.PutNextRectangle(size);
+
         var rectangles = Layouter.Rectangles.ToList();
 
         foreach (var r1 in rectangles)
-        {
-            foreach (var r2 in rectangles.Where(r2 => r2 != r1))
-            {
-                r1.IntersectsWith(r2).Should().BeFalse();
-            }
-        }
+        foreach (var r2 in rectangles.Where(r2 => r2 != r1))
+            r1.IntersectsWith(r2).Should().BeFalse();
     }
-    
+
     private static IEnumerable<TestCaseData> IntersectionRectanglesTestCases
     {
         get

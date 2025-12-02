@@ -16,7 +16,7 @@ public class VisualizerSettings
         int height,
         Color backgroundColor,
         Color rectangleColor,
-        Color rectangleBorderColor, 
+        Color rectangleBorderColor,
         float rectangleBorderWidth)
     {
         Width = width;

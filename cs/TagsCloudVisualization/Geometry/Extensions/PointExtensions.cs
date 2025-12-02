@@ -8,7 +8,7 @@ public static class PointExtensions
     {
         var dx = point.X - other.X;
         var dy = point.Y - other.Y;
-        
+
         return Math.Sqrt(dx * dx + dy * dy);
     }
 

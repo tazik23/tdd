@@ -13,14 +13,11 @@ public class CenterTests : CircularCloudLayouterTestBase
     {
         var spiral = new ArchimedeanSpiral(center);
         Layouter = new SpiralCloudLayouter(spiral);
-        
-        foreach (var size in SizesGenerator.GenerateRandomRectangles(10, 123))
-        {
-            Layouter.PutNextRectangle(size);
-        }
+
+        foreach (var size in SizesGenerator.GenerateRandomRectangles(10, 123)) Layouter.PutNextRectangle(size);
 
         var rectangle = Layouter.Rectangles.First();
-        
+
         rectangle.GetCenter().Should().BeEquivalentTo(center);
     }
 
@@ -36,10 +33,8 @@ public class CenterTests : CircularCloudLayouterTestBase
         get
         {
             foreach (var center in GetTestCenters())
-            {
                 yield return new TestCaseData(center)
                     .SetName($"FirstRectangle_ShouldPlaceInCenter_({center.X},{center.Y})");
-            }
         }
     }
 }

@@ -7,7 +7,6 @@ using TagsCloudVisualization.Visualizers;
 
 namespace Tests.CloudLayouterTests;
 
-[TestFixture]
 public class CircularCloudLayouterTestBase
 {
     protected Point Center;

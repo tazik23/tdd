@@ -28,4 +28,3 @@ public static class RectangleExtensions
         return new Rectangle(newLocation, rectangle.Size);
     }
 }
-
